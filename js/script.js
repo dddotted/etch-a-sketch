@@ -13,6 +13,7 @@ function createGrid(count) {
     const div = document.createElement("div");
     div.classList.add("cell");
     div.style.width = `calc(100% / ${count})`;
+    div.dataset.shade = 100;
     fragment.appendChild(div);
   }
   
@@ -21,9 +22,27 @@ function createGrid(count) {
 }
 
 
+function getRandom(number) {
+  return Math.floor(Math.random() * (number + 1));
+}
+
+
+function getRandomColor() {
+  return `rgb(${getRandom(255)}, ${getRandom(255)}, ${getRandom(255)})`;
+}
+
+
 grid.addEventListener("mouseover", (e) => {
   if (e.target && e.target.classList.contains("cell")) {
-    e.target.classList.add("is-hover");
+    if (!e.target.dataset.colored) {
+      e.target.style.backgroundColor = getRandomColor();
+      e.target.dataset.colored = "1";
+    }
+    if (e.target.dataset.shade > 0) {
+      const shade = Math.max(0, (parseInt(e.target.dataset.shade, 10) || 100) - 10);
+      e.target.dataset.shade = String(shade);
+      e.target.style.filter = `brightness(${shade}%)`;
+    }
   }
 });
 

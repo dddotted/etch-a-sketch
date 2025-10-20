@@ -18,12 +18,8 @@
 
 .cell {
   aspect-ratio: 1 / 1;
-  background-color: gray;
-  border: 1px solid #333;
-}
-
-.cell.is-hover {
   background-color: #fff;
+  border: 1px solid #333;
 }
 
 .resize-button {
